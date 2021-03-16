@@ -13,14 +13,11 @@ module.exports = (app) => {
         let savedNotes = JSON.parse(fs.readFileSync("./db/db.json", "utf8"));
         const {title, text} = req.body;
         const newNote = {title, text, id: uuidv4()}
-        // let uniqueID = (savedNotes.length).toString();
-        // newNote.id = uniqueID;
         savedNotes.push(newNote);
-
         fs.writeFileSync("./db/db.json", JSON.stringify(savedNotes));
-        //console.log("Saved: ", newNote);
         res.json(savedNotes);
     });
+    
 
     app.delete("/api/notes/:id", (req, res) => {
        let noteData = JSON.parse(fs.readFileSync("./db/db.json", "utf8"));
